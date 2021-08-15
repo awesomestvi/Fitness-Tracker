@@ -1,0 +1,18 @@
+.card-wrapper {
+  text-align: center;
+  padding: 30px;
+}
+
+.workouts {
+  padding: 20px 0;
+}
+
+.workouts span {
+  display: inline-block;
+  margin-top: 5px;
+}
+
+.icon {
+  width: 30px;
+  display: block;
+}
