@@ -1,4 +1,4 @@
-<mat-card class="card-wrapper">
+<mat-card class="card-wrapper center">
   <mat-card-title>Let's start a workout!</mat-card-title>
   <mat-card-content>
     <div
@@ -12,7 +12,7 @@
         mat-fab
         type="button"
         color="primary"
-        (click)="startWorkout(workout.value)"
+        (click)="startWorkout(workout)"
       >
         <img class="icon" [src]="workout.icon" />
       </button>

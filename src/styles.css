@@ -33,7 +33,19 @@ main {
   margin: 30px;
 }
 
+.center {
+  text-align: center;
+}
+
 .card-wrapper {
   width: 330px;
   margin: 0 auto;
+}
+
+mat-card.mat-card {
+  padding: 25px;
+}
+
+.mat-card-title {
+  line-height: 26px;
 }
