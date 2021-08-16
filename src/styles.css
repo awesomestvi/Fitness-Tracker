@@ -1,6 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
 @import "@angular/material/prebuilt-themes/pink-bluegrey.css";
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   height: 100%;
@@ -30,7 +34,7 @@ a:focus {
 }
 
 main {
-  margin: 30px;
+  margin: 30px 15px;
 }
 
 .center {
@@ -43,9 +47,15 @@ main {
 }
 
 mat-card.mat-card {
-  padding: 25px;
+  padding: 25px 20px;
 }
 
 .mat-card-title {
   line-height: 26px;
+}
+
+@media only screen and (min-width: 768px) {
+  main {
+    margin: 30px;
+  }
 }
