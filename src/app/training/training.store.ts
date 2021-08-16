@@ -1,7 +1,7 @@
 import { Training } from "./training.model";
 
 class TrainingStore {
-  availableExercise: Training[] = [
+  private availableExercise: Training[] = [
     {
       id: "lunges",
       name: "Lunges",
@@ -31,6 +31,10 @@ class TrainingStore {
       icon: "../../../assets/img/high-knees.png",
     },
   ];
+
+  getAvailableExercises() {
+    return this.availableExercise.slice();
+  }
 }
 
 export default new TrainingStore();

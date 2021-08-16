@@ -1,11 +1,13 @@
 import { Injectable } from "@angular/core";
+import { Subject } from "rxjs";
 import { Training } from "./training.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class TrainingService {
-  private currentTraining: any;
+  private currentTraining: Training | undefined;
+  onGoingTraining = new Subject<Boolean>();
 
   constructor() {}
 
@@ -18,10 +20,10 @@ export class TrainingService {
   }
 
   getCurrentTrainingName() {
-    return this.currentTraining.name;
+    return this.currentTraining?.name;
   }
 
   getCurrentTrainingIcon() {
-    return this.currentTraining.icon;
+    return this.currentTraining?.icon;
   }
 }

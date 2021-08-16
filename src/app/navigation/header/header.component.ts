@@ -16,7 +16,7 @@ import { AuthService } from "src/app/auth/auth.service";
 export class HeaderComponent implements OnInit, OnDestroy {
   @Output() toggleSideNav = new EventEmitter();
   isAuth: Boolean = false;
-  authSubscription: Subscription;
+  authSubscription: Subscription | undefined;
 
   constructor(private authService: AuthService) {}
 
@@ -35,6 +35,6 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authSubscription.unsubscribe();
+    this.authSubscription?.unsubscribe();
   }
 }

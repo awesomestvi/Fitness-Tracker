@@ -16,7 +16,7 @@ import { AuthService } from "src/app/auth/auth.service";
 export class SidenavListComponent implements OnInit, OnDestroy {
   @Output() closeSideNav = new EventEmitter<void>();
   isAuth: Boolean = false;
-  authSubscription: Subscription;
+  authSubscription: Subscription | undefined;
 
   constructor(private authService: AuthService) {}
 
@@ -36,6 +36,6 @@ export class SidenavListComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.authSubscription.unsubscribe();
+    this.authSubscription?.unsubscribe();
   }
 }
