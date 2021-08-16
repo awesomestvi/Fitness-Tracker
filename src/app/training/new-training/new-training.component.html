@@ -2,8 +2,8 @@
   <mat-card-title>Let's start a workout!</mat-card-title>
   <mat-card-content>
     <div
-      class="workouts"
-      *ngFor="let workout of workouts"
+      class="exercises"
+      *ngFor="let exercise of exercises"
       fxLayout="column"
       fxFlex
       fxLayoutAlign="center center"
@@ -12,11 +12,11 @@
         mat-fab
         type="button"
         color="primary"
-        (click)="startWorkout(workout)"
+        (click)="startTraining(exercise)"
       >
-        <img class="icon" [src]="workout.icon" />
+        <img class="icon" [src]="exercise.icon" />
       </button>
-      <span>{{ workout.type }}</span>
+      <span>{{ exercise.name }}</span>
     </div>
   </mat-card-content>
 </mat-card>

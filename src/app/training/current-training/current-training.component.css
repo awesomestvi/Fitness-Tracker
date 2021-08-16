@@ -2,14 +2,14 @@ mat-progress-spinner {
   margin: 20px auto;
 }
 
-.workout_img {
+.exercise_img {
   position: relative;
   top: -90px;
   width: 40px;
   margin: 0 auto;
 }
 
-.workout_img > img {
+.exercise_img > img {
   position: absolute;
   width: 40px;
   left: 0;

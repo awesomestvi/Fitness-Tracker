@@ -9,7 +9,7 @@ import { DialogComponent } from "./dialog/dialog.component";
   styleUrls: ["./current-training.component.css"],
 })
 export class CurrentTrainingComponent implements OnInit {
-  @Output() cancelWorkout = new EventEmitter();
+  @Output() cancelTraining = new EventEmitter();
   progress = 0;
   timer: any;
 
@@ -19,10 +19,10 @@ export class CurrentTrainingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.startOrResumeWorkout();
+    this.startOrResumeTraining();
   }
 
-  startOrResumeWorkout() {
+  startOrResumeTraining() {
     this.timer = setInterval(() => {
       this.progress += 1;
       if (this.progress === 100) clearInterval(this.timer);
@@ -38,15 +38,15 @@ export class CurrentTrainingComponent implements OnInit {
     const dialogRef = this.dialog.open(DialogComponent, {
       data: {
         progress: this.progress,
-        workout: this.trainingService.currentWorkout,
+        exercise: this.trainingService.getCurrentTraining(),
       },
     });
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.cancelWorkout.emit();
+        this.cancelTraining.emit();
       } else {
-        this.startOrResumeWorkout();
+        this.startOrResumeTraining();
       }
     });
   }

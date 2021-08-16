@@ -1,11 +1,11 @@
 <mat-tab-group
   mat-align-tabs="center"
   animationDuration="200ms"
-  *ngIf="!onGoingWorkout"
+  *ngIf="!onGoingExercise"
 >
   <mat-tab label="New Exercise">
     <app-new-training
-      (workoutStatus)="onGoingWorkout = true"
+      (exerciseStatus)="onGoingExercise = true"
     ></app-new-training>
   </mat-tab>
   <mat-tab label="Past Exercises">
@@ -13,6 +13,6 @@
   </mat-tab>
 </mat-tab-group>
 <app-current-training
-  *ngIf="onGoingWorkout"
-  (cancelWorkout)="onGoingWorkout = false"
+  *ngIf="onGoingExercise"
+  (cancelTraining)="onGoingExercise = false"
 ></app-current-training>

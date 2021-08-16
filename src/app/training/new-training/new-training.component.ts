@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from "@angular/core";
 import { TrainingService } from "../training.service";
-import { Workouts } from "../training.model";
-import WorkoutStore from "../training.store";
+import { Training } from "../training.model";
+import TrainingStore from "../training.store";
 
 @Component({
   selector: "app-new-training",
@@ -9,18 +9,18 @@ import WorkoutStore from "../training.store";
   styleUrls: ["./new-training.component.css"],
 })
 export class NewTrainingComponent implements OnInit {
-  @Output() workoutStatus = new EventEmitter<void>();
-  workouts: Workouts[] = [];
+  @Output() exerciseStatus = new EventEmitter<void>();
+  exercises: Training[] = [];
 
   constructor(public trainingService: TrainingService) {
-    const { workouts } = WorkoutStore;
-    this.workouts = workouts;
+    const { availableExercise } = TrainingStore;
+    this.exercises = availableExercise;
   }
 
   ngOnInit(): void {}
 
-  startWorkout(workout: Workouts) {
-    this.workoutStatus.emit();
-    this.trainingService.currentWorkout = workout;
+  startTraining(exercise: Training) {
+    this.exerciseStatus.emit();
+    this.trainingService.setCurrentTraining(exercise);
   }
 }

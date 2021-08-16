@@ -16,7 +16,8 @@ import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HeaderComponent } from "./navigation/header/header.component";
 import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
-import { DialogComponent } from './training/current-training/dialog/dialog.component';
+import { DialogComponent } from "./training/current-training/dialog/dialog.component";
+import { AuthService } from "./auth/auth.service";
 
 @NgModule({
   declarations: [
@@ -41,7 +42,7 @@ import { DialogComponent } from './training/current-training/dialog/dialog.compo
     FormsModule,
     ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

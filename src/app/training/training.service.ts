@@ -1,11 +1,27 @@
 import { Injectable } from "@angular/core";
-import { Workouts } from "./training.model";
+import { Training } from "./training.model";
 
 @Injectable({
   providedIn: "root",
 })
 export class TrainingService {
-  currentWorkout: any;
+  private currentTraining: any;
 
   constructor() {}
+
+  getCurrentTraining() {
+    return { ...this.currentTraining };
+  }
+
+  setCurrentTraining(exercise: Training) {
+    this.currentTraining = exercise;
+  }
+
+  getCurrentTrainingName() {
+    return this.currentTraining.name;
+  }
+
+  getCurrentTrainingIcon() {
+    return this.currentTraining.icon;
+  }
 }

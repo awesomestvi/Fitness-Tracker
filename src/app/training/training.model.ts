@@ -1,5 +1,9 @@
-export interface Workouts {
-  value: string;
-  type: string;
-  icon: string;
+export interface Training {
+  id: string;
+  name: string;
+  duration: number;
+  calories: number;
+  icon?: string;
+  date?: Date;
+  state?: "completed" | "cancelled" | null;
 }

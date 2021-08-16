@@ -1,14 +1,14 @@
 <section>
   <mat-card class="card-wrapper center">
     <mat-card-title>{{
-      this.trainingService.currentWorkout.type
+      this.trainingService.getCurrentTrainingName()
     }}</mat-card-title>
     <mat-progress-spinner
       mode="determinate"
       [value]="progress"
     ></mat-progress-spinner>
-    <div class="workout_img">
-      <img [src]="this.trainingService.currentWorkout.icon" />
+    <div class="exercise_img">
+      <img [src]="this.trainingService.getCurrentTrainingIcon()" />
     </div>
     <h1>{{ progress }}%</h1>
     <p>Keep on going, you can do it!</p>

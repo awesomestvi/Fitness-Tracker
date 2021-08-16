@@ -1,28 +1,36 @@
-import { Workouts } from "./training.model";
+import { Training } from "./training.model";
 
-class WorkoutStore {
-  workouts: Workouts[] = [
+class TrainingStore {
+  availableExercise: Training[] = [
     {
-      value: "lunges",
-      type: "Lunges",
+      id: "lunges",
+      name: "Lunges",
+      duration: 30,
+      calories: 4,
       icon: "../../../assets/img/lunges.png",
     },
     {
-      value: "cycling",
-      type: "Cycling",
+      id: "cycling",
+      name: "Cycling",
+      duration: 300,
+      calories: 10,
       icon: "../../../assets/img/cycling.png",
     },
     {
-      value: "burpees",
-      type: "Burpees",
+      id: "burpees",
+      name: "Burpees",
+      duration: 60,
+      calories: 8,
       icon: "../../../assets/img/burpees.png",
     },
     {
-      value: "highKnees",
-      type: "High Knees",
+      id: "highKnees",
+      name: "High Knees",
+      duration: 45,
+      calories: 6,
       icon: "../../../assets/img/high-knees.png",
     },
   ];
 }
 
-export default new WorkoutStore();
+export default new TrainingStore();
