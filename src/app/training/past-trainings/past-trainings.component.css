@@ -10,3 +10,85 @@ section {
 section > * {
   width: 100%;
 }
+
+.hidden_desktop {
+  display: none;
+}
+
+@media screen and (max-width: 767px) {
+  .mat-table .hidden_desktop {
+    display: block;
+  }
+
+  .mat-table .hidden_mobile {
+    display: none;
+  }
+
+  .mat-table {
+    border: 0;
+    vertical-align: middle;
+    background: none;
+  }
+
+  .mat-table .mat-header-row {
+    display: none;
+  }
+
+  .mat-table .mat-row {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    margin-bottom: 20px;
+    padding: 25px;
+    border-radius: 4px;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background: #424242;
+  }
+
+  .mat-table .mat-cell {
+    border: 0;
+    padding: 0;
+  }
+
+  .mat-table .flex_layout {
+    display: flex;
+    flex-direction: row;
+    width: 50%;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .mat-table .flex_layout > * {
+    flex: 1;
+  }
+
+  .mat-table .exercise_title {
+    font-size: 24px;
+    font-weight: 500;
+    line-height: 26px;
+    margin: 12px 0;
+  }
+
+  .mat-table .exercise_state {
+    position: absolute;
+    top: 0;
+    right: 0;
+    background: #c2175b;
+    padding: 7px 15px;
+    border-radius: 0 4px 0 4px;
+    font-size: 14px;
+  }
+
+  .mat-table .mat-cell .exercise_image {
+    border-radius: 50%;
+    width: auto;
+    padding: 12px;
+    background: #c2175b;
+    box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%),
+      0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);
+  }
+}

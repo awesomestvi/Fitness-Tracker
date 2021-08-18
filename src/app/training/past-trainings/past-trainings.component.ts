@@ -23,6 +23,7 @@ export class PastTrainingsComponent
   displayedColumns = [
     "image",
     "name",
+    "duration&Calories",
     "duration",
     "calories",
     "date",
