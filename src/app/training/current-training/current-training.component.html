@@ -8,7 +8,13 @@
       [value]="progress"
     ></mat-progress-spinner>
     <div class="exercise_img">
-      <img [src]="this.trainingService.getCurrentTrainingIcon()" />
+      <img
+        [src]="
+          '../../../assets/img/' +
+          this.trainingService.getCurrentTrainingIcon() +
+          '.png'
+        "
+      />
     </div>
     <h1>{{ progress }}%</h1>
     <p>Keep on going, you can do it!</p>

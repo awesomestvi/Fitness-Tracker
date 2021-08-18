@@ -22,10 +22,15 @@ export class CurrentTrainingComponent implements OnInit {
   }
 
   startOrResumeTraining() {
+    const duration =
+      (this.trainingService.getCurrentTrainingDuration() / 100) * 1000;
     this.timer = setInterval(() => {
       this.progress += 1;
-      if (this.progress === 100) clearInterval(this.timer);
-    }, 330);
+      if (this.progress === 100) {
+        clearInterval(this.timer);
+        this.trainingService.finishedExercise("completed");
+      }
+    }, duration);
   }
 
   onStop() {
@@ -43,7 +48,7 @@ export class CurrentTrainingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
-        this.trainingService.onGoingTraining.next(false);
+        this.trainingService.finishedExercise("cancelled", this.progress);
       } else {
         this.startOrResumeTraining();
       }

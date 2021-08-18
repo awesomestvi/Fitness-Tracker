@@ -1,0 +1,12 @@
+.exercise_image {
+  width: 20px;
+}
+
+section {
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+section > * {
+  width: 100%;
+}

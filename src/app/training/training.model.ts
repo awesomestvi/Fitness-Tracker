@@ -4,6 +4,6 @@ export interface Training {
   duration: number;
   calories: number;
   icon?: string;
-  date?: Date;
+  date?: Date | string;
   state?: "completed" | "cancelled" | null;
 }

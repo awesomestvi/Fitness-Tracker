@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import { TrainingService } from "../training.service";
 import { Training } from "../training.model";
-import TrainingStore from "../training.store";
+import { Observable } from "rxjs";
 
 @Component({
   selector: "app-new-training",
@@ -9,12 +9,12 @@ import TrainingStore from "../training.store";
   styleUrls: ["./new-training.component.css"],
 })
 export class NewTrainingComponent implements OnInit {
-  exercises: Training[] = [];
+  exercises: Observable<Training[]>;
 
   constructor(public trainingService: TrainingService) {}
 
   ngOnInit(): void {
-    this.exercises = TrainingStore.getAvailableExercises();
+    this.exercises = this.trainingService.fetchAvailableExercises();
   }
 
   startTraining(exercise: Training) {

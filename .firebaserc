@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "vishals-fitness-tracker": {
+      "hosting": {
+        "fitness-tracker": [
+          "vishals-fitness-tracker"
+        ]
+      }
+    }
+  }
+}
