@@ -1,5 +1,6 @@
 import { NgModule } from "@angular/core";
 import { BrowserModule } from "@angular/platform-browser";
+import { StoreModule } from "@ngrx/store";
 
 import { AppComponent } from "./app.component";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
@@ -20,7 +21,12 @@ import { DialogComponent } from "./training/current-training/dialog/dialog.compo
 import { AuthService } from "./auth/auth.service";
 import { AngularFireModule } from "@angular/fire";
 import { AngularFirestoreModule } from "@angular/fire/firestore";
-import { environment } from "src/environments/environment";
+import { AngularFireAuthModule } from "@angular/fire/auth";
+import { LoadingComponent } from "./loading/loading.component";
+
+import { reducers } from "./app.reducer";
+import { StoreDevtoolsModule } from "@ngrx/store-devtools";
+import { environment } from "../environments/environment";
 
 @NgModule({
   declarations: [
@@ -35,6 +41,7 @@ import { environment } from "src/environments/environment";
     HeaderComponent,
     SidenavListComponent,
     DialogComponent,
+    LoadingComponent,
   ],
   imports: [
     BrowserModule,
@@ -46,6 +53,12 @@ import { environment } from "src/environments/environment";
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
+    AngularFireAuthModule,
+    StoreModule.forRoot(reducers),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
   ],
   providers: [AuthService],
   bootstrap: [AppComponent],

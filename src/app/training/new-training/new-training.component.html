@@ -3,7 +3,7 @@
   <mat-card-content>
     <div
       class="exercises"
-      *ngFor="let exercise of exercises | async"
+      *ngFor="let exercise of exercises$ | async"
       fxLayout="column"
       fxFlex
       fxLayoutAlign="center center"

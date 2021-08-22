@@ -1,25 +1,36 @@
 import { Injectable } from "@angular/core";
-import { Observable, Subject } from "rxjs";
-import { map, shareReplay } from "rxjs/operators";
+import { Observable, BehaviorSubject, Subscription } from "rxjs";
+import { map, shareReplay, tap } from "rxjs/operators";
 import { Training } from "./training.model";
 import { AngularFirestore } from "@angular/fire/firestore";
-import { MatSnackBar } from "@angular/material/snack-bar";
+import { CommonService } from "../shared/common.service";
+import { Store } from "@ngrx/store";
+import * as fromRoot from "../app.reducer";
+import * as UI from "../shared/ui.actions";
 
 @Injectable({
   providedIn: "root",
 })
 export class TrainingService {
   private currentTraining: Training | undefined | null;
-  onGoingTraining = new Subject<Boolean>();
-  finishedExercisesChanged = new Subject<Training[]>();
+  public onGoingTrainingSubject = new BehaviorSubject<boolean>(false);
+  onGoingTraining$: Observable<boolean> =
+    this.onGoingTrainingSubject.asObservable();
+
+  finishedExercisesChanged = new BehaviorSubject<Training[]>([]);
+
+  private allSubs: Subscription[] = [];
 
   constructor(
     private firestore: AngularFirestore,
-    private snackBar: MatSnackBar
+    private commonService: CommonService,
+    private store: Store<fromRoot.State>
   ) {}
 
   fetchAvailableExercises() {
-    return this.firestore
+    this.store.dispatch(new UI.StartLoading());
+
+    const availableExercises$ = this.firestore
       .collection("availableExercise")
       .snapshotChanges()
       .pipe(
@@ -31,22 +42,48 @@ export class TrainingService {
             };
           })
         ),
+        tap(() => this.store.dispatch(new UI.StopLoading())),
         shareReplay()
       );
+
+    return availableExercises$;
   }
 
   fetchPastExercises() {
+    this.store.dispatch(new UI.StartLoading());
     const finishedTraining$: Observable<Training[]> = this.firestore
       .collection("finishedExercises")
-      .valueChanges() as Observable<Training[]>;
+      .snapshotChanges()
+      .pipe(
+        map((collections) =>
+          collections.map((doc) => {
+            return {
+              ...(doc.payload.doc.data() as any),
+              id: doc.payload.doc.id,
+            };
+          })
+        ),
+        shareReplay()
+      ) as Observable<Training[]>;
 
-    finishedTraining$.subscribe((exercises) => {
-      this.finishedExercisesChanged.next(exercises);
-    });
+    this.allSubs.push(
+      finishedTraining$.subscribe({
+        next: (exercises) => {
+          this.finishedExercisesChanged.next(exercises);
+        },
+        error: (err) => this.store.dispatch(new UI.StopLoading()),
+        complete: () => this.store.dispatch(new UI.StopLoading()),
+      })
+    );
   }
 
   private sendDatatoDatabase(exercise: Training) {
     this.firestore.collection("finishedExercises").add(exercise);
+  }
+
+  deleteRow(exercise: Training) {
+    this.firestore.collection("finishedExercises").doc(exercise.id).delete();
+    this.commonService.openSnackBar(`${exercise.name} exercise is deleted`);
   }
 
   getCurrentTraining() {
@@ -69,12 +106,6 @@ export class TrainingService {
     return this.currentTraining?.duration || 0;
   }
 
-  openSnackBar(message: string) {
-    this.snackBar.open(message, undefined, {
-      duration: 3000,
-    });
-  }
-
   finishedExercise(state: any, progress?: number) {
     const finishedExercise = {
       ...this.currentTraining,
@@ -93,10 +124,16 @@ export class TrainingService {
     this.sendDatatoDatabase(finishedExercise);
 
     // Show feedback
-    this.openSnackBar(`${finishedExercise.name} workout is ${state}`);
+    this.commonService.openSnackBar(
+      `${finishedExercise.name} workout is ${state}`
+    );
 
     // Clear current exercise
-    this.onGoingTraining.next(false);
+    this.onGoingTrainingSubject.next(false);
     this.setCurrentTraining(null);
+  }
+
+  cancelAllSubs() {
+    this.allSubs.forEach((subs) => subs?.unsubscribe());
   }
 }

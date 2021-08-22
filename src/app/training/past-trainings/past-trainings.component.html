@@ -89,6 +89,15 @@
       </td>
     </ng-container>
 
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
+      <td class="exercise_actions" mat-cell *matCellDef="let element">
+        <button mat-raised-button color="primary" (click)="onDelete(element)">
+          Delete
+        </button>
+      </td>
+    </ng-container>
+
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
     <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
   </table>

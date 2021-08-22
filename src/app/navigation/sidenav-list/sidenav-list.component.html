@@ -5,7 +5,7 @@
     <span>Home</span>
   </a>
   <a
-    *ngIf="!isAuth"
+    *ngIf="!(this.authService.isAuth$ | async)"
     mat-list-item
     routerLink="/signup"
     (click)="onCloseSideNav()"
@@ -14,7 +14,7 @@
     <span>Signup</span>
   </a>
   <a
-    *ngIf="!isAuth"
+    *ngIf="!(this.authService.isAuth$ | async)"
     mat-list-item
     routerLink="/login"
     (click)="onCloseSideNav()"
@@ -23,7 +23,7 @@
     <span>Login</span>
   </a>
   <a
-    *ngIf="isAuth"
+    *ngIf="this.authService.isAuth$ | async"
     mat-list-item
     routerLink="/training"
     (click)="onCloseSideNav()"
@@ -31,7 +31,11 @@
     <mat-icon>fitness_center</mat-icon>
     <span>Training</span>
   </a>
-  <a *ngIf="isAuth" mat-list-item (click)="onLogout()">
+  <a
+    *ngIf="this.authService.isAuth$ | async"
+    mat-list-item
+    (click)="onLogout()"
+  >
     <mat-icon>eject</mat-icon>
     <span>Logout</span>
   </a>

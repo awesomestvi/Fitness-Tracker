@@ -9,16 +9,16 @@ import { Observable } from "rxjs";
   styleUrls: ["./new-training.component.css"],
 })
 export class NewTrainingComponent implements OnInit {
-  exercises: Observable<Training[]>;
+  exercises$: Observable<Training[]>;
 
   constructor(public trainingService: TrainingService) {}
 
   ngOnInit(): void {
-    this.exercises = this.trainingService.fetchAvailableExercises();
+    this.exercises$ = this.trainingService.fetchAvailableExercises();
   }
 
   startTraining(exercise: Training) {
     this.trainingService.setCurrentTraining(exercise);
-    this.trainingService.onGoingTraining.next(true);
+    this.trainingService.onGoingTrainingSubject.next(true);
   }
 }

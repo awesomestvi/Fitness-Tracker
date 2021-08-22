@@ -28,6 +28,7 @@ export class PastTrainingsComponent
     "calories",
     "date",
     "status",
+    "actions",
   ];
   dataSource = new MatTableDataSource<Training>();
   dataSourceSubscription = new Subscription();
@@ -45,13 +46,19 @@ export class PastTrainingsComponent
   ngOnInit(): void {
     this.dataSourceSubscription =
       this.trainingService.finishedExercisesChanged.subscribe(
-        (exercises: Training[]) => (this.dataSource.data = exercises)
+        (exercises: Training[]) => {
+          this.dataSource.data = exercises;
+        }
       );
     this.trainingService.fetchPastExercises();
   }
 
   applyFilter(target: any) {
     this.dataSource.filter = target.value.trim().toLowerCase();
+  }
+
+  onDelete(exercise: Training) {
+    this.trainingService.deleteRow(exercise);
   }
 
   ngOnDestroy() {
