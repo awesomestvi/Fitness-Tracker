@@ -50,6 +50,7 @@ export class AuthService {
     this.allSubs.push(
       register$.pipe(shareReplay()).subscribe({
         next: () => {
+          this.router.navigateByUrl("/login");
           this.commonService.openSnackBar(
             `${authData.email} user created successfully`,
             3000
