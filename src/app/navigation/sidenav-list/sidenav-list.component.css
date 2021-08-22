@@ -11,3 +11,13 @@ li > a {
 .sidenav-navlist mat-icon {
   margin-right: 10px;
 }
+
+a.mat-list-item {
+  border-bottom: 1px solid #383838;
+}
+
+.brand-logo:hover,
+.brand-logo:active,
+.brand-logo:focus {
+  color: #fff;
+}
