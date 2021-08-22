@@ -42,7 +42,6 @@ main {
 }
 
 .card-wrapper {
-  width: 330px;
   margin: 0 auto;
 }
 
@@ -57,5 +56,10 @@ mat-card.mat-card {
 @media only screen and (min-width: 768px) {
   main {
     margin: 30px;
+  }
+
+  .card-wrapper {
+    width: 330px;
+    margin: 0 auto;
   }
 }
