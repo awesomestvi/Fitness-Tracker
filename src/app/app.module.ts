@@ -19,14 +19,16 @@ import { HeaderComponent } from "./navigation/header/header.component";
 import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
 import { DialogComponent } from "./training/current-training/dialog/dialog.component";
 import { AuthService } from "./auth/auth.service";
-import { AngularFireModule } from "@angular/fire";
-import { AngularFirestoreModule } from "@angular/fire/firestore";
-import { AngularFireAuthModule } from "@angular/fire/auth";
 import { LoadingComponent } from "./loading/loading.component";
 
-import { reducers } from "./app.reducer";
 import { StoreDevtoolsModule } from "@ngrx/store-devtools";
 import { environment } from "../environments/environment";
+import { EntityDataModule, EntityDataService } from "@ngrx/data";
+import { ExercisesResolver } from "./training/exercises.resolver";
+import { EffectsModule } from "@ngrx/effects";
+import { HttpClientModule } from "@angular/common/http";
+import { entityConfig } from "./entity-metadata";
+import { AuthDataService } from "./store/entity/auth-data.service";
 
 @NgModule({
   declarations: [
@@ -50,17 +52,24 @@ import { environment } from "../environments/environment";
     AppRoutingModule,
     FlexLayoutModule,
     FormsModule,
+    HttpClientModule,
     ReactiveFormsModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule,
-    AngularFireAuthModule,
-    StoreModule.forRoot(reducers),
+    EffectsModule.forRoot([]),
+    EntityDataModule.forRoot(entityConfig),
+    StoreModule.forRoot([]),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
       logOnly: environment.production,
     }),
   ],
-  providers: [AuthService],
+  providers: [AuthService, ExercisesResolver],
   bootstrap: [AppComponent],
 })
-export class AppModule {}
+export class AppModule {
+  constructor(
+    entityDataService: EntityDataService,
+    authDataService: AuthDataService
+  ) {
+    entityDataService.registerService("Auth", authDataService);
+  }
+}

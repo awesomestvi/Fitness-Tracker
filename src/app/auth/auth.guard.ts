@@ -5,14 +5,22 @@ import {
   CanActivate,
   Router,
 } from "@angular/router";
-import { Store } from "@ngrx/store";
-import * as fromRoot from "../app.reducer";
+import { Observable } from "rxjs";
+import { tap } from "rxjs/operators";
+import { AuthEntityService } from "../store/entity/auth-entity.service";
 
 @Injectable()
 export class AuthGuard implements CanActivate {
-  constructor(private store: Store<fromRoot.State>, private router: Router) {}
+  constructor(private router: Router, private authService: AuthEntityService) {}
 
-  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-    return this.store.select(fromRoot.getisAuth);
+  canActivate(
+    route: ActivatedRouteSnapshot,
+    state: RouterStateSnapshot
+  ): Observable<boolean> {
+    return this.authService.isAuth().pipe(
+      tap((auth) => {
+        if (!auth) this.router.navigateByUrl("/");
+      })
+    );
   }
 }

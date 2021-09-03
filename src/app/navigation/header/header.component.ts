@@ -1,5 +1,7 @@
 import { Component, OnInit, Output, EventEmitter } from "@angular/core";
+import { Observable } from "rxjs";
 import { AuthService } from "src/app/auth/auth.service";
+import { AuthEntityService } from "src/app/store/entity/auth-entity.service";
 
 @Component({
   selector: "app-header",

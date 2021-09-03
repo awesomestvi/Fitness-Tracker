@@ -1,9 +1,11 @@
-export interface Training {
-  id: string;
+export interface Exercise {
+  id: number;
+  seqNo: number;
   name: string;
+  category: "BEGINNER" | "ADVANCED";
   duration: number;
   calories: number;
-  icon?: string;
+  iconName?: string;
   date?: Date | string;
   state?: "completed" | "cancelled" | null;
 }

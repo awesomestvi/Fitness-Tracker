@@ -1,109 +1,55 @@
 import { AuthData } from "./auth-data.model";
-import { from, Observable, Subscription } from "rxjs";
 import { Injectable } from "@angular/core";
 import { Router } from "@angular/router";
-import { AngularFireAuth } from "@angular/fire/auth";
 import { CommonService } from "../shared/common.service";
-import { TrainingService } from "../training/training.service";
-import { shareReplay } from "rxjs/operators";
-import { Store } from "@ngrx/store";
-import * as fromRoot from "../app.reducer";
-import * as UI from "../shared/ui.actions";
-import * as Auth from "./auth.actions";
+import { AuthEntityService } from "../store/entity/auth-entity.service";
+import { Observable } from "rxjs";
+import { HttpClient } from "@angular/common/http";
+import { SIGNUP_URL } from "../shared/config";
 
 @Injectable()
 export class AuthService {
-  private allSubs: Subscription[] = [];
   isAuth$: Observable<boolean>;
 
   constructor(
     private router: Router,
-    private fireAuth: AngularFireAuth,
+    private http: HttpClient,
     private commonService: CommonService,
-    private trainingService: TrainingService,
-    private store: Store<fromRoot.State>
+    private authService: AuthEntityService
   ) {
-    this.isAuth$ = this.store.select(fromRoot.getisAuth);
-  }
-
-  initAuth() {
-    this.allSubs.push(
-      this.fireAuth.authState.pipe(shareReplay()).subscribe((user) => {
-        if (user) {
-          this.authSuccessfully();
-        } else {
-          this.logout();
-        }
-      })
-    );
+    this.isAuth$ = this.authService.isAuth();
   }
 
   registerUser(authData: AuthData) {
-    this.store.dispatch(new UI.StartLoading());
-    const register$ = from(
-      this.fireAuth.createUserWithEmailAndPassword(
-        authData.email,
-        authData.password
-      )
-    );
-
-    this.allSubs.push(
-      register$.pipe(shareReplay()).subscribe({
-        next: () => {
-          this.router.navigateByUrl("/login");
-          this.commonService.openSnackBar(
-            `${authData.email} user created successfully`,
-            3000
-          );
-        },
-        error: (error) => {
-          this.commonService.openSnackBar(error.message, 5000);
-          this.store.dispatch(new UI.StopLoading());
-        },
-        complete: () => this.store.dispatch(new UI.StopLoading()),
-      })
-    );
+    this.http.post<any>(SIGNUP_URL, authData).subscribe({
+      next: () => {
+        this.router.navigateByUrl("/login");
+        this.commonService.openSnackBar(
+          `${authData.email} user created successfully`,
+          3000
+        );
+      },
+      error: (error) => {
+        this.commonService.openSnackBar(error.error.error.message, 5000);
+      },
+    });
   }
 
   login(authData: AuthData) {
-    this.store.dispatch(new UI.StartLoading());
-    const signIn$ = from(
-      this.fireAuth.signInWithEmailAndPassword(
-        authData.email,
-        authData.password
-      )
-    );
-
-    this.allSubs.push(
-      signIn$.pipe(shareReplay()).subscribe({
-        next: () => {
-          this.authSuccessfully();
-          this.commonService.openSnackBar(`${authData.email} is now logged in`);
-          this.store.dispatch(new UI.StopLoading());
-        },
-        error: (error) => {
-          this.commonService.openSnackBar(error.message, 5000);
-          this.store.dispatch(new UI.StopLoading());
-        },
-      })
-    );
+    this.authService.add(authData).subscribe({
+      next: () => {
+        this.router.navigate(["/training"]);
+        this.commonService.openSnackBar(`${authData.email} is now logged in`);
+      },
+      error: (error) => {
+        this.commonService.openSnackBar(error.error.error.error.message, 5000);
+      },
+    });
   }
 
   logout() {
-    this.store.dispatch(new Auth.SetUnauthenticated());
-    this.trainingService.cancelAllSubs();
-    this.cancelAllSubs();
-    this.fireAuth.signOut();
+    this.commonService.openSnackBar("You are now logged out!", 3000);
+    this.authService.clearCache();
     this.router.navigate(["/"]);
-    this.commonService.openSnackBar("User is now logged out!", 3000);
-  }
-
-  authSuccessfully() {
-    this.store.dispatch(new Auth.SetAuthenticated());
-    this.router.navigate(["/training"]);
-  }
-
-  cancelAllSubs() {
-    this.allSubs.forEach((subs) => subs?.unsubscribe());
   }
 }

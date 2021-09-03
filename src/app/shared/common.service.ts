@@ -4,9 +4,7 @@ import {
   MatSnackBarVerticalPosition,
 } from "@angular/material/snack-bar";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
-import { Store } from "@ngrx/store";
-import * as fromRoot from "../app.reducer";
+import { ExerciseEntityService } from "../store/entity/exercise-entity.service";
 
 @Injectable({
   providedIn: "root",
@@ -16,9 +14,9 @@ export class CommonService {
 
   constructor(
     private snackBar: MatSnackBar,
-    private store: Store<fromRoot.State>
+    private exerciseService: ExerciseEntityService
   ) {
-    this.loading$ = this.store.select(fromRoot.getIsLoading);
+    this.loading$ = this.exerciseService.loading$;
   }
 
   openSnackBar(

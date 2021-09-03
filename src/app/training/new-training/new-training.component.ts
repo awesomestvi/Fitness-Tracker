@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
-import { TrainingService } from "../training.service";
-import { Training } from "../training.model";
+import { Exercise } from "../exercise.model";
 import { Observable } from "rxjs";
+import { ExerciseEntityService } from "../../store/entity/exercise-entity.service";
+import { TrainingService } from "../training.service";
 
 @Component({
   selector: "app-new-training",
@@ -9,15 +10,18 @@ import { Observable } from "rxjs";
   styleUrls: ["./new-training.component.css"],
 })
 export class NewTrainingComponent implements OnInit {
-  exercises$: Observable<Training[]>;
+  exercises$: Observable<Exercise[]>;
 
-  constructor(public trainingService: TrainingService) {}
+  constructor(
+    public exerciseService: ExerciseEntityService,
+    private trainingService: TrainingService
+  ) {}
 
   ngOnInit(): void {
-    this.exercises$ = this.trainingService.fetchAvailableExercises();
+    this.exercises$ = this.exerciseService.entities$;
   }
 
-  startTraining(exercise: Training) {
+  startTraining(exercise: Exercise) {
     this.trainingService.setCurrentTraining(exercise);
     this.trainingService.onGoingTrainingSubject.next(true);
   }

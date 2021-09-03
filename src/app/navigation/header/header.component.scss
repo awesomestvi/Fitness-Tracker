@@ -1,0 +1,54 @@
+li > a {
+  font-weight: 100;
+  font-size: 16px;
+}
+
+.brand-logo {
+  display: block;
+  height: 64px;
+  font-size: 24px;
+}
+
+svg {
+  width: 165px;
+  height: 64px;
+}
+
+$colors: #000, #fff;
+$max: length($colors);
+$dash: 800;
+$dash-gap: 50;
+$dash-space: $dash * ($max - 1) + $dash-gap * $max;
+$time: 15s;
+$time-step: $time/$max;
+
+.text {
+  fill: none;
+  stroke-width: 1;
+  stroke-linejoin: round;
+  stroke-dasharray: $dash $dash-space;
+  stroke-dashoffset: 0;
+  -webkit-animation: stroke $time infinite linear;
+  animation: stroke $time infinite linear;
+
+  @for $item from 1 through $max {
+    &:nth-child(#{$max}n + #{$item}) {
+      $color: nth($colors, $item);
+      stroke: $color;
+      -webkit-animation-delay: -($time-step * $item);
+      animation-delay: -($time-step * $item);
+    }
+  }
+}
+
+@-webkit-keyframes stroke {
+  100% {
+    stroke-dashoffset: -($dash + $dash-gap) * $max;
+  }
+}
+
+@keyframes stroke {
+  100% {
+    stroke-dashoffset: -($dash + $dash-gap) * $max;
+  }
+}

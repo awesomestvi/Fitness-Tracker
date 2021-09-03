@@ -6,7 +6,7 @@ import {
   ViewChild,
 } from "@angular/core";
 import { MatTableDataSource } from "@angular/material/table";
-import { Training } from "../training.model";
+import { Exercise } from "../exercise.model";
 import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { TrainingService } from "../training.service";
@@ -30,7 +30,7 @@ export class PastTrainingsComponent
     "status",
     "actions",
   ];
-  dataSource = new MatTableDataSource<Training>();
+  dataSource = new MatTableDataSource<Exercise>();
   dataSourceSubscription = new Subscription();
 
   @ViewChild(MatSort) sort: MatSort;
@@ -46,19 +46,19 @@ export class PastTrainingsComponent
   ngOnInit(): void {
     this.dataSourceSubscription =
       this.trainingService.finishedExercisesChanged.subscribe(
-        (exercises: Training[]) => {
+        (exercises: Exercise[]) => {
           this.dataSource.data = exercises;
         }
       );
-    this.trainingService.fetchPastExercises();
+    // this.trainingService.fetchPastExercises();
   }
 
   applyFilter(target: any) {
     this.dataSource.filter = target.value.trim().toLowerCase();
   }
 
-  onDelete(exercise: Training) {
-    this.trainingService.deleteRow(exercise);
+  onDelete(exercise: Exercise) {
+    // this.trainingService.deleteRow(exercise);
   }
 
   ngOnDestroy() {
