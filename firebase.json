@@ -5,7 +5,7 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "/fitness-tracker/index.html"
+        "destination": "/index.html"
       }
     ]
   }

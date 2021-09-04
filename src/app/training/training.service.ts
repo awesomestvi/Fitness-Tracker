@@ -1,6 +1,5 @@
 import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, Subscription } from "rxjs";
-import { map, shareReplay } from "rxjs/operators";
 import { Exercise } from "./exercise.model";
 import { CommonService } from "../shared/common.service";
 
@@ -9,6 +8,7 @@ import { CommonService } from "../shared/common.service";
 })
 export class TrainingService {
   private currentTraining: Exercise | undefined | null;
+
   public onGoingTrainingSubject = new BehaviorSubject<boolean>(false);
   onGoingTraining$: Observable<boolean> =
     this.onGoingTrainingSubject.asObservable();
