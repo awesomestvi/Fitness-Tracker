@@ -1,9 +1,8 @@
 import { EntityMetadataMap } from "@ngrx/data";
 
 const entityMetadata: EntityMetadataMap = {
-  Exercise: {
-    // selectId: (exercise) => exercise.id,
-  },
+  Exercise: {},
+  FinishedExercise: {},
   Auth: {
     selectId: (auth) => auth.localId,
   },

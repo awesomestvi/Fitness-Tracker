@@ -2,6 +2,8 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, Subscription } from "rxjs";
 import { Exercise } from "./exercise.model";
 import { CommonService } from "../shared/common.service";
+import { ExerciseEntityService } from "../store/entity/exercise-entity.service";
+import { FinishedEntityService } from "../store/entity/finished-entity.service";
 
 @Injectable({
   providedIn: "root",
@@ -17,47 +19,19 @@ export class TrainingService {
 
   private allSubs: Subscription[] = [];
 
-  constructor(private commonService: CommonService) {}
+  constructor(
+    private commonService: CommonService,
+    private finishedExerciseService: FinishedEntityService
+  ) {}
 
-  // fetchPastExercises() {
-  //   // this.store.dispatch(new UI.StartLoading());
-  //   const finishedTraining$: Observable<Exercise[]> = this.firestore
-  //     .collection("finishedExercises")
-  //     .snapshotChanges()
-  //     .pipe(
-  //       map((collections) =>
-  //         collections.map((doc) => {
-  //           return {
-  //             ...(doc.payload.doc.data() as any),
-  //             id: doc.payload.doc.id,
-  //           };
-  //         })
-  //       ),
-  //       shareReplay()
-  //     ) as Observable<Exercise[]>;
+  private sendDatatoDatabase(exercise: Exercise) {
+    this.finishedExerciseService.add(exercise);
+  }
 
-  //   this.allSubs.push(
-  //     finishedTraining$.subscribe({
-  //       next: (exercises) => {
-  //         this.finishedExercisesChanged.next(exercises);
-  //       },
-  //       // error: (err) => this.store.dispatch(new UI.StopLoading()),
-  //       // complete: () => this.store.dispatch(new UI.StopLoading()),
-  //     })
-  //   );
-  // }
-
-  // private sendDatatoDatabase(exercise: Exercise) {
-  //   this.firestore.collection("finishedExercises").add(exercise);
-  // }
-
-  // deleteRow(exercise: Exercise) {
-  //   this.firestore
-  //     .collection("finishedExercises")
-  //     .doc(exercise.id.toString())
-  //     .delete();
-  //   this.commonService.openSnackBar(`${exercise.name} exercise is deleted`);
-  // }
+  deleteRow(exercise: Exercise) {
+    this.finishedExerciseService.delete(exercise);
+    this.commonService.openSnackBar(`${exercise.name} exercise is deleted`);
+  }
 
   getCurrentTraining() {
     return { ...this.currentTraining };
@@ -80,7 +54,7 @@ export class TrainingService {
   }
 
   finishedExercise(state: any, progress?: number) {
-    const finishedExercise = {
+    const finishedExercise: Exercise = {
       ...this.currentTraining,
       date: new Date(),
       state: state,
@@ -94,7 +68,7 @@ export class TrainingService {
         : this.currentTraining.calories * this.currentTraining.duration,
     };
 
-    //this.sendDatatoDatabase(finishedExercise);
+    this.sendDatatoDatabase(finishedExercise);
 
     // Show feedback
     this.commonService.openSnackBar(

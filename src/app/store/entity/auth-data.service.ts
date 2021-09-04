@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { DefaultDataService, HttpUrlGenerator } from "@ngrx/data";
 import { Observable } from "rxjs";
 import { AuthData } from "src/app/auth/auth-data.model";
-import { LOGIN_URL, SIGNUP_URL } from "src/app/shared/config";
+import { LOGIN_URL } from "src/app/shared/config";
 
 @Injectable({
   providedIn: "root",

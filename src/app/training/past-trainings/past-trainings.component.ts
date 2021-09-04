@@ -11,6 +11,7 @@ import { MatSort } from "@angular/material/sort";
 import { MatPaginator } from "@angular/material/paginator";
 import { TrainingService } from "../training.service";
 import { Subscription } from "rxjs";
+import { FinishedEntityService } from "src/app/store/entity/finished-entity.service";
 
 @Component({
   selector: "app-past-trainings",
@@ -41,16 +42,18 @@ export class PastTrainingsComponent
     this.dataSource.paginator = this.paginator;
   }
 
-  constructor(private trainingService: TrainingService) {}
+  constructor(
+    private trainingService: TrainingService,
+    private finishedExerciseService: FinishedEntityService
+  ) {}
 
   ngOnInit(): void {
     this.dataSourceSubscription =
-      this.trainingService.finishedExercisesChanged.subscribe(
+      this.finishedExerciseService.entities$.subscribe(
         (exercises: Exercise[]) => {
           this.dataSource.data = exercises;
         }
       );
-    // this.trainingService.fetchPastExercises();
   }
 
   applyFilter(target: any) {
@@ -58,7 +61,7 @@ export class PastTrainingsComponent
   }
 
   onDelete(exercise: Exercise) {
-    // this.trainingService.deleteRow(exercise);
+    this.trainingService.deleteRow(exercise);
   }
 
   ngOnDestroy() {

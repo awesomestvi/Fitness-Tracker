@@ -37,7 +37,8 @@ export class AuthService {
 
   login(authData: AuthData) {
     this.authService.add(authData).subscribe({
-      next: () => {
+      next: (res) => {
+        localStorage.setItem("auth", JSON.stringify(res));
         this.router.navigate(["/training"]);
         this.commonService.openSnackBar(`${authData.email} is now logged in`);
       },
@@ -50,6 +51,7 @@ export class AuthService {
   logout() {
     this.commonService.openSnackBar("You are now logged out!", 3000);
     this.authService.clearCache();
+    localStorage.removeItem("auth");
     this.router.navigate(["/"]);
   }
 }

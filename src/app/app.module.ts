@@ -30,6 +30,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { entityConfig } from "./entity-metadata";
 import { AuthDataService } from "./store/entity/auth-data.service";
 import { ExerciseDataService } from "./store/entity/exercise-data.service";
+import { FinishedDataService } from "./store/entity/finished-data.service";
 
 @NgModule({
   declarations: [
@@ -70,11 +71,13 @@ export class AppModule {
   constructor(
     entityDataService: EntityDataService,
     authDataService: AuthDataService,
-    exerciseDataService: ExerciseDataService
+    exerciseDataService: ExerciseDataService,
+    finishedDataService: FinishedDataService
   ) {
     entityDataService.registerServices({
       ["Auth"]: authDataService,
       ["Exercise"]: exerciseDataService,
+      ["FinishedExercise"]: finishedDataService,
     });
   }
 }
