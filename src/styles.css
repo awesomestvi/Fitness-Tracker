@@ -59,7 +59,7 @@ mat-card.mat-card {
   }
 
   .card-wrapper {
-    width: 330px;
+    width: 330px !important;
     margin: 0 auto;
   }
 }

@@ -12,6 +12,7 @@ import { MatPaginator } from "@angular/material/paginator";
 import { TrainingService } from "../training.service";
 import { Subscription } from "rxjs";
 import { FinishedEntityService } from "src/app/store/entity/finished-entity.service";
+import { tap } from "rxjs/operators";
 
 @Component({
   selector: "app-past-trainings",
@@ -47,13 +48,17 @@ export class PastTrainingsComponent
     private finishedExerciseService: FinishedEntityService
   ) {}
 
+  noExercise: boolean = false;
+
   ngOnInit(): void {
-    this.dataSourceSubscription =
-      this.finishedExerciseService.entities$.subscribe(
-        (exercises: Exercise[]) => {
-          this.dataSource.data = exercises;
-        }
-      );
+    this.dataSourceSubscription = this.finishedExerciseService.entities$
+      .pipe(
+        tap((exercises) => {
+          if (exercises.length === 0) this.noExercise = true;
+          if (exercises.length > 0) this.noExercise = false;
+        })
+      )
+      .subscribe((exercises: Exercise[]) => (this.dataSource.data = exercises));
   }
 
   applyFilter(target: any) {
