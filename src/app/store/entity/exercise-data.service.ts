@@ -2,6 +2,7 @@ import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { DefaultDataService, HttpUrlGenerator } from "@ngrx/data";
 import { Observable } from "rxjs";
+import { API_ENDPOINT } from "src/app/shared/config";
 import { Exercise } from "src/app/training/exercise.model";
 
 @Injectable({
@@ -13,8 +14,6 @@ export class ExerciseDataService extends DefaultDataService<Exercise> {
   }
 
   getAll(): Observable<Exercise[]> {
-    return this.http.get<Exercise[]>(
-      "https://vishals-fitness-tracker-api.herokuapp.com/api/exercises"
-    );
+    return this.http.get<Exercise[]>(`${API_ENDPOINT}/api/exercises`);
   }
 }
