@@ -3,8 +3,7 @@
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve  --proxy-config ./proxy.json",
-    "server": "ts-node -P ./server/server.tsconfig.json ./server/server.ts",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",

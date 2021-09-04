@@ -29,6 +29,7 @@ import { EffectsModule } from "@ngrx/effects";
 import { HttpClientModule } from "@angular/common/http";
 import { entityConfig } from "./entity-metadata";
 import { AuthDataService } from "./store/entity/auth-data.service";
+import { ExerciseDataService } from "./store/entity/exercise-data.service";
 
 @NgModule({
   declarations: [
@@ -68,8 +69,12 @@ import { AuthDataService } from "./store/entity/auth-data.service";
 export class AppModule {
   constructor(
     entityDataService: EntityDataService,
-    authDataService: AuthDataService
+    authDataService: AuthDataService,
+    exerciseDataService: ExerciseDataService
   ) {
-    entityDataService.registerService("Auth", authDataService);
+    entityDataService.registerServices({
+      ["Auth"]: authDataService,
+      ["Exercise"]: exerciseDataService,
+    });
   }
 }
