@@ -12,7 +12,8 @@ import { MatPaginator } from "@angular/material/paginator";
 import { TrainingService } from "../training.service";
 import { Subscription } from "rxjs";
 import { FinishedEntityService } from "src/app/store/entity/finished-entity.service";
-import { tap } from "rxjs/operators";
+import { map, tap } from "rxjs/operators";
+import { AuthService } from "src/app/auth/auth.service";
 
 @Component({
   selector: "app-past-trainings",
@@ -35,8 +36,8 @@ export class PastTrainingsComponent
   dataSource = new MatTableDataSource<Exercise>();
   dataSourceSubscription = new Subscription();
 
-  @ViewChild(MatSort) sort: MatSort;
-  @ViewChild(MatPaginator) paginator: MatPaginator;
+  @ViewChild(MatSort) sort!: MatSort;
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;

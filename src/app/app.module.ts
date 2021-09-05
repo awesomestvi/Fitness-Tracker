@@ -16,7 +16,6 @@ import { AppRoutingModule } from "./app-routing.module";
 import { FlexLayoutModule } from "@angular/flex-layout";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { HeaderComponent } from "./navigation/header/header.component";
-import { SidenavListComponent } from "./navigation/sidenav-list/sidenav-list.component";
 import { DialogComponent } from "./training/current-training/dialog/dialog.component";
 import { AuthService } from "./auth/auth.service";
 import { LoadingComponent } from "./loading/loading.component";
@@ -43,7 +42,6 @@ import { FinishedDataService } from "./store/entity/finished-data.service";
     PastTrainingsComponent,
     WelcomeComponent,
     HeaderComponent,
-    SidenavListComponent,
     DialogComponent,
     LoadingComponent,
   ],

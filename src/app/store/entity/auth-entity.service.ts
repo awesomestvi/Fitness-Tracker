@@ -3,7 +3,7 @@ import {
   EntityCollectionServiceBase,
   EntityCollectionServiceElementsFactory,
 } from "@ngrx/data";
-import { map } from "rxjs/operators";
+import { map, take } from "rxjs/operators";
 import { AuthData } from "../../auth/auth-data.model";
 
 @Injectable({

@@ -1,0 +1,134 @@
+/* You can add global styles to this file, and also import other style files */
+@import "@angular/material/prebuilt-themes/pink-bluegrey.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  background: #101318;
+}
+
+ul,
+li {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  text-decoration: none;
+  color: #fff;
+}
+
+a:hover,
+a:active,
+a:focus {
+  color: lightgray;
+}
+
+main {
+  margin: 0px 30px;
+}
+
+main,
+mat-toolbar {
+  max-width: 807px;
+  margin: 0 15px;
+}
+
+mat-toolbar {
+  border-radius: 4px 4px 0 0;
+}
+
+.center {
+  text-align: center;
+}
+
+.card-wrapper {
+  margin: 0 auto;
+}
+
+mat-card.mat-card {
+  padding: 25px 20px;
+}
+
+.mat-card-title {
+  line-height: 26px;
+}
+
+.mat-drawer-container {
+  background: none;
+}
+
+.mat-tab-nav-bar,
+.mat-tab-header {
+  border-bottom: none;
+}
+
+.account_footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 12px;
+  p {
+    color: #ccc;
+  }
+
+  a {
+    color: #c2185b;
+  }
+}
+
+/* Media Query */
+@media only screen and (min-width: 768px) {
+  .card-wrapper {
+    width: 330px !important;
+    margin: 0 auto;
+  }
+
+  main,
+  mat-toolbar {
+    margin: 0 auto !important;
+    padding: 0 20px;
+  }
+}
+
+/* Animations */
+@-webkit-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes AnimationName {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}

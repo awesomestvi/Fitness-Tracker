@@ -1,28 +1,15 @@
 <mat-toolbar>
-  <div class="background blue-purple"></div>
-  <div class="background green-blue"></div>
-  <div class="foreground">
-    <div fxHide.gt-xs>
-      <button mat-icon-button (click)="onToggleSideNav()">
-        <mat-icon>menu</mat-icon>
-      </button>
-    </div>
-    <div><a routerLink="/">Fitness Tracker</a></div>
-    <div fxFlex fxLayout fxLayoutAlign="flex-end" fxHide.xs>
-      <ul fxLayout fxLayoutGap="15px" class="nav-items">
-        <li *ngIf="!(this.authService.isAuth$ | async)">
-          <a routerLink="/signup">Signup</a>
-        </li>
-        <li *ngIf="!(this.authService.isAuth$ | async)">
-          <a routerLink="/login">Login</a>
-        </li>
-        <li *ngIf="this.authService.isAuth$ | async">
-          <a routerLink="/training">Training</a>
-        </li>
-        <li *ngIf="this.authService.isAuth$ | async" style="cursor: pointer">
-          <a (click)="onLogout()">Logout</a>
-        </li>
-      </ul>
-    </div>
+  <div class="brand_logo" [class.active]="!(this.authService.isAuth$ | async)">
+    <a routerLink="/">Fitness Tracker</a>
+  </div>
+  <div fxFlex fxLayout fxLayoutAlign="flex-end">
+    <ul fxLayout fxLayoutGap="15px" class="nav-items">
+      <li *ngIf="this.authService.isAuth$ | async">
+        <a routerLink="/training">Training</a>
+      </li>
+      <li *ngIf="this.authService.isAuth$ | async" style="cursor: pointer">
+        <a (click)="onLogout()">Logout</a>
+      </li>
+    </ul>
   </div>
 </mat-toolbar>

@@ -8,14 +8,9 @@ import { AuthService } from "../auth.service";
   styleUrls: ["./signup.component.css"],
 })
 export class SignupComponent implements OnInit {
-  maxDate: any;
-
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {
-    this.maxDate = new Date();
-    this.maxDate.setFullYear(this.maxDate.getFullYear() - 18);
-  }
+  ngOnInit(): void {}
 
   onSubmit(form: NgForm) {
     if (!form.valid) return;

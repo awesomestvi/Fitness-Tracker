@@ -8,4 +8,5 @@ export interface Exercise {
   iconName?: string;
   date?: Date | string;
   state?: "completed" | "cancelled" | null;
+  user?: string;
 }

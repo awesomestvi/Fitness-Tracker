@@ -20,6 +20,12 @@ export class AuthService {
     this.isAuth$ = this.authService.isAuth();
   }
 
+  getUserId() {
+    const user = localStorage.getItem("auth");
+    const auth = user ? JSON.parse(user) : user;
+    return auth?.localId;
+  }
+
   registerUser(authData: AuthData) {
     this.http.post<any>(SIGNUP_URL, authData).subscribe({
       next: () => {

@@ -8,7 +8,7 @@ import { AuthService } from "../auth.service";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup;
+  loginForm: FormGroup | undefined;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 
@@ -20,6 +20,6 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.authService.login(this.loginForm.value);
+    this.authService.login(this.loginForm?.value);
   }
 }

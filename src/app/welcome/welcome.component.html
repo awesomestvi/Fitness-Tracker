@@ -1,26 +1,11 @@
-<div
-  class="welcome"
-  fxLayout="column"
-  fxLayout.gt-sm="row"
-  fxLayoutGap="20px"
-  fxLayoutAlign="center center"
->
-  <mat-card>
-    <section>
-      <h1>Activity</h1>
-      <p>Stay active and enjoy better health and more fun!</p>
-    </section>
-  </mat-card>
-  <mat-card>
-    <section>
-      <h1>Community</h1>
-      <p>Get to know other people who share your passion!</p>
-    </section>
-  </mat-card>
-  <mat-card>
-    <section>
-      <h1>Challenges</h1>
-      <p>Never stop dive into new challenges every day!</p>
-    </section>
-  </mat-card>
-</div>
+<section class="welcome">
+  <div class="left_section">
+    <h1>We help you<br />track your workouts!</h1>
+    <p>Workout with Fitness Tracker and store your workouts to your profile. Stay Active!</p>
+    <div *ngIf="!(this.authService.isAuth$ | async)">
+      <a class="buttons" routerLink="/login">Login</a>
+      <a class="buttons" routerLink="/signup">Signup</a>
+    </div>
+  </div>
+  <div class="right_section"></div>
+</section>

@@ -2,18 +2,17 @@ import { Injectable } from "@angular/core";
 import { Observable, BehaviorSubject, Subscription } from "rxjs";
 import { Exercise } from "./exercise.model";
 import { CommonService } from "../shared/common.service";
-import { ExerciseEntityService } from "../store/entity/exercise-entity.service";
 import { FinishedEntityService } from "../store/entity/finished-entity.service";
+import { AuthService } from "../auth/auth.service";
 
 @Injectable({
   providedIn: "root",
 })
 export class TrainingService {
-  private currentTraining: Exercise | undefined | null;
+  private currentTraining!: Exercise;
 
   public onGoingTrainingSubject = new BehaviorSubject<boolean>(false);
-  onGoingTraining$: Observable<boolean> =
-    this.onGoingTrainingSubject.asObservable();
+  onGoingTraining$: Observable<boolean> = this.onGoingTrainingSubject.asObservable();
 
   finishedExercisesChanged = new BehaviorSubject<Exercise[]>([]);
 
@@ -21,7 +20,8 @@ export class TrainingService {
 
   constructor(
     private commonService: CommonService,
-    private finishedExerciseService: FinishedEntityService
+    private finishedExerciseService: FinishedEntityService,
+    private authService: AuthService
   ) {}
 
   private sendDatatoDatabase(exercise: Exercise) {
@@ -37,7 +37,7 @@ export class TrainingService {
     return { ...this.currentTraining };
   }
 
-  setCurrentTraining(exercise: Exercise | null) {
+  setCurrentTraining(exercise: Exercise) {
     this.currentTraining = exercise;
   }
 
@@ -54,26 +54,23 @@ export class TrainingService {
   }
 
   finishedExercise(state: any, progress?: number) {
+    const currentExercise = this.currentTraining;
+    const duration = currentExercise.duration;
+    const calories = currentExercise.calories;
+
     const finishedExercise: Exercise = {
-      ...this.currentTraining,
+      ...currentExercise,
       date: new Date(),
       state: state,
-      duration: progress
-        ? this.currentTraining.duration * (progress / 100)
-        : this.currentTraining.duration,
-      calories: progress
-        ? this.currentTraining.calories *
-          this.currentTraining.duration *
-          (progress / 100)
-        : this.currentTraining.calories * this.currentTraining.duration,
+      duration: progress ? duration * (progress / 100) : duration,
+      calories: progress ? calories * duration * (progress / 100) : calories * duration,
+      user: this.authService.getUserId(),
     };
 
     this.sendDatatoDatabase(finishedExercise);
 
     // Show feedback
-    this.commonService.openSnackBar(
-      `${finishedExercise.name} workout is ${state}`
-    );
+    this.commonService.openSnackBar(`${finishedExercise.name} workout is ${state}`);
 
     // Clear current exercise
     this.onGoingTrainingSubject.next(false);

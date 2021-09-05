@@ -1,0 +1,79 @@
+.welcome {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  height: calc(100vh - 64px);
+  background: url("../../assets/img/usain.png") 100% 50% no-repeat;
+}
+
+.left_section {
+  width: 330px;
+
+  & > * {
+    margin-bottom: 20px;
+  }
+
+  h1,
+  a.buttons {
+    background: linear-gradient(270deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 800% 800%;
+    -webkit-animation: AnimationName 30s ease infinite;
+    -moz-animation: AnimationName 30s ease infinite;
+    animation: AnimationName 30s ease infinite;
+  }
+
+  h1 {
+    font-size: 50px;
+    line-height: 55px;
+    font-weight: bold;
+    display: inline-block;
+
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    -webkit-background-clip: text;
+  }
+
+  p {
+    font-size: 16px;
+    line-height: 22px;
+    color: #ccc;
+    margin-bottom: 30px;
+  }
+
+  a.buttons {
+    padding: 15px 45px;
+    border-radius: 30px;
+    font-size: 16px;
+    display: inline-block;
+    margin-right: 15px;
+    width: 140px;
+    text-align: center;
+
+    &:last-child {
+      margin-right: 0;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .welcome {
+    background-size: 220px;
+    background-position: 50% 10%;
+    height: calc(100vh - 56px);
+  }
+
+  .left_section {
+    text-align: center;
+    width: 100%;
+    margin-top: 50%;
+
+    h1 {
+      font-size: 40px;
+      line-height: 45px;
+    }
+
+    a.buttons {
+      padding: 12px 35px;
+    }
+  }
+}
