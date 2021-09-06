@@ -1,16 +1,12 @@
 <h1 mat-dialog-title>Cancel {{ data.exercise.name }} workout?</h1>
 <div mat-dialog-content>
   <p>
-    You are making great progress. You have already finished
-    {{ data.progress }}%.
+    You are making great progress. You have already completed
+    {{ data.progress }}% of your workout.
   </p>
-  <p>Press cancel to continue your workout.</p>
+  <p>Continue your workout by pressing the "Cancel" button.</p>
 </div>
 <div mat-dialog-actions>
-  <button color="primary" mat-raised-button [mat-dialog-close]="false">
-    Cancel
-  </button>
-  <button color="accent" mat-raised-button [mat-dialog-close]="true">
-    Yes
-  </button>
+  <button color="primary" mat-raised-button [mat-dialog-close]="false">Cancel</button>
+  <button color="accent" mat-raised-button [mat-dialog-close]="true">Yes</button>
 </div>

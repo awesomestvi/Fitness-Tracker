@@ -12,22 +12,20 @@ export class CurrentTrainingComponent implements OnInit {
   progress = 0;
   timer: any;
 
-  constructor(
-    public trainingService: TrainingService,
-    public dialog: MatDialog
-  ) {}
+  constructor(public trainingService: TrainingService, public dialog: MatDialog) {}
 
   ngOnInit(): void {
     this.startOrResumeTraining();
   }
 
   startOrResumeTraining() {
-    const duration =
-      (this.trainingService.getCurrentTrainingDuration() / 100) * 1000;
+    const duration = (this.trainingService.getCurrentTrainingDuration() / 100) * 1000;
     this.timer = setInterval(() => {
       this.progress += 1;
       if (this.progress === 100) {
         clearInterval(this.timer);
+        const audio = new Audio("../../../assets/audios/complete.mp3");
+        audio.play();
         this.trainingService.finishedExercise("completed");
       }
     }, duration);
@@ -48,6 +46,8 @@ export class CurrentTrainingComponent implements OnInit {
 
     dialogRef.afterClosed().subscribe((result) => {
       if (result) {
+        const audio = new Audio("../../../assets/audios/cancelled.mp3");
+        audio.play();
         this.trainingService.finishedExercise("cancelled", this.progress);
       } else {
         this.startOrResumeTraining();

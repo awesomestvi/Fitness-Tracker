@@ -58,14 +58,13 @@
 @media only screen and (max-width: 767px) {
   .welcome {
     background-size: 220px;
-    background-position: 50% 10%;
     height: calc(100vh - 56px);
   }
 
   .left_section {
     text-align: center;
     width: 100%;
-    margin-top: 50%;
+    position: relative;
 
     h1 {
       font-size: 40px;
@@ -74,6 +73,42 @@
 
     a.buttons {
       padding: 12px 35px;
+    }
+  }
+}
+
+@media only screen and (min-width: 361px) and (max-width: 767px) {
+  .welcome {
+    background-position: 50% 10px;
+  }
+
+  .left_section {
+    top: 90px;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 360px) {
+  .welcome {
+    background-position: 50% 10px;
+  }
+  .left_section {
+    top: 100px;
+  }
+}
+
+@media only screen and (max-width: 320px) {
+  .welcome {
+    background: none;
+  }
+  .left_section {
+    h1 {
+      font-size: 35px;
+      line-height: 40px;
+    }
+
+    a.buttons {
+      padding: 12px 30px;
+      width: 120px;
     }
   }
 }

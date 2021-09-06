@@ -10,6 +10,5 @@
     <app-past-trainings></app-past-trainings>
   </mat-tab>
 </mat-tab-group>
-<app-current-training
-  *ngIf="this.trainingService.onGoingTraining$ | async"
-></app-current-training>
+<app-current-training *ngIf="this.trainingService.onGoingTraining$ | async"></app-current-training>
+<canvas id="confetti"></canvas>
