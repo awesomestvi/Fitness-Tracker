@@ -12,6 +12,7 @@ import { Exercise } from "../exercise.model";
 })
 export class CustomTrainingComponent implements OnInit {
   customExercise!: FormGroup;
+  isData: boolean;
 
   constructor(
     public dialogRef: MatDialogRef<CustomTrainingComponent>,
@@ -19,16 +20,16 @@ export class CustomTrainingComponent implements OnInit {
     private fb: FormBuilder,
     private authService: AuthService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {}
+  ) {
+    this.isData = !!Object.keys(this.data).length;
+  }
 
   ngOnInit(): void {
-    const data = !!Object.keys(this.data).length;
-
     this.customExercise = this.fb.group({
-      name: [data ? this.data.name : "", [Validators.required]],
-      iconURL: [data ? this.data.iconURL : ""],
-      duration: [data ? this.data.duration : "30", Validators.required],
-      calories: [data ? this.data.calories : "2", Validators.required],
+      name: [this.isData ? this.data.name : "", [Validators.required]],
+      iconURL: [this.isData ? this.data.iconURL : ""],
+      duration: [this.isData ? this.data.duration : "30", Validators.required],
+      calories: [this.isData ? this.data.calories : "2", Validators.required],
     });
   }
 
@@ -37,15 +38,15 @@ export class CustomTrainingComponent implements OnInit {
     name = name[0].toUpperCase() + name.slice(1);
 
     const exercise: Exercise = {
+      ...this.data,
       ...this.customExercise?.value,
       name,
-      id: 1,
-      seqNo: 1,
+      id: this.isData ? this.data.id : 1,
+      seqNo: this.isData ? this.data.seqNo : 1,
       user: this.authService.getUserId(),
     };
 
-    const data = !!Object.keys(this.data).length;
-    if (data) this.exerciseService.update(exercise);
-    if (!data) this.exerciseService.add(exercise);
+    if (this.isData) this.exerciseService.update(exercise);
+    if (!this.isData) this.exerciseService.add(exercise);
   }
 }
