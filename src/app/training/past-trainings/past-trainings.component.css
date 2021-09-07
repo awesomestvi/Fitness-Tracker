@@ -2,12 +2,25 @@
   padding: 30px 0;
 }
 
+.mat-table {
+  border-radius: 4px 4px 0 0;
+  overflow: hidden;
+}
+
+.mat-paginator {
+  border-radius: 0 0 4px 4px;
+  overflow: hidden;
+}
+
 .exercise_image {
-  width: 20px;
+  width: 35px;
+  height: 35px;
+  margin: 10px 0;
+  display: inline-block;
 }
 
 section {
-  max-width: 700px;
+  max-width: 767px;
   margin: 0 auto;
 }
 
@@ -20,9 +33,9 @@ section > * {
 }
 
 mat-icon {
-  height: 56px;
-  width: 56px;
-  font-size: 30px;
+  height: 72px;
+  width: 72px;
+  font-size: 35px;
   background: #c2185b;
   border-radius: 50%;
   box-shadow: 0px 3px 5px -1px rgb(0 0 0 / 20%), 0px 6px 10px 0px rgb(0 0 0 / 14%), 0px 1px 18px 0px rgb(0 0 0 / 12%);

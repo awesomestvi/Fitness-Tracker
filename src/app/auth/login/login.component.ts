@@ -8,7 +8,7 @@ import { AuthService } from "../auth.service";
   styleUrls: ["./login.component.css"],
 })
 export class LoginComponent implements OnInit {
-  loginForm: FormGroup | undefined;
+  loginForm!: FormGroup;
 
   constructor(private fb: FormBuilder, private authService: AuthService) {}
 

@@ -1,0 +1,23 @@
+.custom_dialog {
+  min-width: 320px;
+  min-height: 380px;
+
+  form,
+  .mat-form-field {
+    width: 100%;
+  }
+
+  .mat-dialog-content {
+    height: 100%;
+    max-height: initial;
+    overflow: initial;
+  }
+
+  mat-form-field {
+    margin-bottom: 15px;
+
+    &.last-child {
+      margin-bottom: 0;
+    }
+  }
+}

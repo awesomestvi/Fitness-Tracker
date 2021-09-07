@@ -8,7 +8,7 @@
         <a routerLink="/training">Training</a>
       </li>
       <li *ngIf="this.authService.isAuth$ | async" style="cursor: pointer">
-        <a (click)="onLogout()">Logout</a>
+        <a href="javascript:;" (click)="onLogout()">Logout</a>
       </li>
     </ul>
   </div>

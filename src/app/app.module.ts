@@ -30,6 +30,7 @@ import { entityConfig } from "./entity-metadata";
 import { AuthDataService } from "./store/entity/auth-data.service";
 import { ExerciseDataService } from "./store/entity/exercise-data.service";
 import { FinishedDataService } from "./store/entity/finished-data.service";
+import { CustomTrainingComponent } from './training/custom-training/custom-training.component';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { FinishedDataService } from "./store/entity/finished-data.service";
     HeaderComponent,
     DialogComponent,
     LoadingComponent,
+    CustomTrainingComponent,
   ],
   imports: [
     BrowserModule,

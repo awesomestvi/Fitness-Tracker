@@ -1,25 +1,38 @@
-<mat-card class="card-wrapper center">
+<mat-card class="center">
   <mat-card-title>Let's start a workout!</mat-card-title>
   <mat-card-content>
     <div
       class="exercises"
+      [ngClass]="exercise.iconURL ? 'customWorkout' : ''"
       *ngFor="let exercise of exercises$ | async"
-      fxLayout="column"
-      fxFlex
-      fxLayoutAlign="center center"
     >
       <button
         mat-fab
         type="button"
         color="primary"
+        [ngClass]="exercise.user ? 'custom' : ''"
         (click)="startTraining(exercise)"
       >
-        <img
-          class="icon"
-          [src]="'../../../assets/img/' + exercise.iconName + '.png'"
-        />
+        <svg class="icon" *ngIf="exercise.iconName">
+          <use [attr.href]="'../../../assets/img/sprite.svg#' + exercise.iconName"></use>
+        </svg>
+        <img *ngIf="exercise.iconURL" class="icon" [src]="exercise.iconURL" />
       </button>
-      <span>{{ exercise.name }}</span>
+      <span class="relative"
+        >{{ exercise.name }}
+        <span class="action_btns" *ngIf="exercise.iconURL">
+          <a title="Edit {{ exercise.name }}" href="javascript:;" (click)="edit(exercise)"><mat-icon>edit</mat-icon></a>
+          <a title="Delete {{ exercise.name }}" href="javascript:;" (click)="delete(exercise)"
+            ><mat-icon>delete</mat-icon></a
+          >
+        </span>
+      </span>
+    </div>
+    <div class="exercises">
+      <button class="custom" mat-fab type="button" color="primary" (click)="createExercise()">
+        <mat-icon>add</mat-icon>
+      </button>
+      <span>Custom Workout</span>
     </div>
   </mat-card-content>
 </mat-card>
