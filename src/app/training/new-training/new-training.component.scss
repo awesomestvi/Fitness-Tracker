@@ -77,3 +77,9 @@ mat-card-content {
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .exercises {
+    margin: 0.5rem !important;
+  }
+}

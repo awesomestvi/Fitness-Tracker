@@ -21,3 +21,9 @@
     }
   }
 }
+
+@media only screen and (max-width: 767px) {
+  .custom_dialog {
+    min-width: initial;
+  }
+}
