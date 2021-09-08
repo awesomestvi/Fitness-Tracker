@@ -1,6 +1,5 @@
 .custom_dialog {
   min-width: 320px;
-  min-height: 380px;
 
   form,
   .mat-form-field {
@@ -20,6 +19,13 @@
       margin-bottom: 0;
     }
   }
+}
+
+.mat-dialog-actions {
+  padding: 0;
+  display: block;
+  min-height: initial;
+  margin: 10px 0;
 }
 
 @media only screen and (max-width: 767px) {

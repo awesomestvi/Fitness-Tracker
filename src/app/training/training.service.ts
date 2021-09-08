@@ -49,10 +49,6 @@ export class TrainingService {
     return this.currentTraining?.iconName;
   }
 
-  getCurrentTrainingIconURL() {
-    return this.currentTraining?.iconURL;
-  }
-
   isIcon(): boolean {
     return !!this.currentTraining.iconName;
   }

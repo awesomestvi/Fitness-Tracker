@@ -78,7 +78,7 @@ mat-card.mat-card {
 .account_footer {
   text-align: center;
   margin-top: 20px;
-  font-size: 12px;
+  font-size: 14px;
   p {
     color: #ccc;
   }
@@ -86,6 +86,10 @@ mat-card.mat-card {
   a {
     color: #c2185b;
   }
+}
+
+.cdk-overlay-dark-backdrop {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 /* Media Query */

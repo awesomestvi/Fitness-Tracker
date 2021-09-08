@@ -2,6 +2,7 @@
   <mat-form-field appearance="standard">
     <mat-label>Filter Exercises</mat-label>
     <input
+      class="filter_input"
       matInput
       (keyup)="applyFilter($event.target)"
       placeholder="eg: Burpees, August, cancelled, completed"
@@ -13,10 +14,9 @@
     <ng-container matColumnDef="image">
       <th mat-header-cell *matHeaderCellDef></th>
       <td mat-cell *matCellDef="let element">
-        <svg *ngIf="element.iconName" class="exercise_image">
+        <svg class="exercise_image" [ngClass]="element.type ? 'custom' : ''">
           <use [attr.href]="'../../../assets/img/sprite.svg#' + element.iconName"></use>
         </svg>
-        <img *ngIf="element.iconURL" class="exercise_image" [src]="element.iconURL" />
       </td>
     </ng-container>
 

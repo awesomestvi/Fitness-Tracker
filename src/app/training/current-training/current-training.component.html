@@ -3,14 +3,9 @@
     <mat-card-title>{{ this.trainingService.getCurrentTrainingName() }}</mat-card-title>
     <mat-progress-spinner mode="determinate" [value]="progress"></mat-progress-spinner>
     <div class="exercise_img">
-      <svg *ngIf="this.trainingService.isIcon()" class="icon">
+      <svg class="icon">
         <use [attr.href]="'../../../assets/img/sprite.svg#' + this.trainingService.getCurrentTrainingIcon()"></use>
       </svg>
-      <img
-        *ngIf="!this.trainingService.isIcon()"
-        class="icon"
-        [src]="this.trainingService.getCurrentTrainingIconURL()"
-      />
     </div>
     <h1>{{ progress }}%</h1>
     <p>Keep on going, you can do it!</p>

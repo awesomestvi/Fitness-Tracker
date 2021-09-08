@@ -27,6 +27,6 @@ export class ExerciseDataService extends DefaultDataService<Exercise> {
   }
 
   update(exercise: Update<Exercise>): Observable<Exercise> {
-    return this.http.put<Exercise>(`${API_ENDPOINT}/api/exercise/${exercise["id"]}`, exercise);
+    return this.http.put<Exercise>(`${API_ENDPOINT}/api/exercise/${exercise.id}`, exercise.changes);
   }
 }

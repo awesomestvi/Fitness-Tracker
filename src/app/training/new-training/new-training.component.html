@@ -1,38 +1,49 @@
 <mat-card class="center">
-  <mat-card-title>Let's start a workout!</mat-card-title>
-  <mat-card-content>
-    <div
-      class="exercises"
-      [ngClass]="exercise.iconURL ? 'customWorkout' : ''"
-      *ngFor="let exercise of exercises$ | async"
-    >
-      <button
-        mat-fab
-        type="button"
-        color="primary"
-        [ngClass]="exercise.user ? 'custom' : ''"
-        (click)="startTraining(exercise)"
-      >
-        <svg class="icon" *ngIf="exercise.iconName">
-          <use [attr.href]="'../../../assets/img/sprite.svg#' + exercise.iconName"></use>
-        </svg>
-        <img *ngIf="exercise.iconURL" class="icon" [src]="exercise.iconURL" />
-      </button>
-      <span class="relative"
-        >{{ exercise.name }}
-        <span class="action_btns" *ngIf="exercise.iconURL">
-          <a title="Edit {{ exercise.name }}" href="javascript:;" (click)="edit(exercise)"><mat-icon>edit</mat-icon></a>
-          <a title="Delete {{ exercise.name }}" href="javascript:;" (click)="delete(exercise)"
-            ><mat-icon>delete</mat-icon></a
-          >
-        </span>
-      </span>
+  <div>
+    <mat-card-title>Let's start a workout!</mat-card-title>
+    <div class="mobile_scroll">
+      <mat-card-content>
+        <div class="exercises" *ngFor="let exercise of exercises$ | async">
+          <button mat-fab type="button" color="primary" (click)="startTraining(exercise)">
+            <svg class="icon">
+              <use [attr.href]="'../../../assets/img/sprite.svg#' + exercise.iconName"></use>
+            </svg>
+          </button>
+          <span class="relative">{{ exercise.name }} </span>
+        </div>
+      </mat-card-content>
     </div>
-    <div class="exercises">
-      <button class="custom" mat-fab type="button" color="primary" (click)="createExercise()">
-        <mat-icon>add</mat-icon>
-      </button>
-      <span>Custom Workout</span>
+  </div>
+
+  <div class="customWorkout">
+    <mat-card-title>Custom Workouts!</mat-card-title>
+    <div class="mobile_scroll">
+      <mat-card-content>
+        <div class="exercises" *ngFor="let exercise of customExercise$ | async">
+          <button mat-fab type="button" color="primary" class="custom" (click)="startTraining(exercise)">
+            <svg *ngIf="exercise.iconName" class="icon">
+              <use [attr.href]="'../../../assets/img/sprite.svg#' + exercise.iconName"></use>
+            </svg>
+          </button>
+          <span class="relative"
+            >{{ exercise.name }}
+            <span class="action_btns">
+              <a title="Edit {{ exercise.name }}" href="javascript:;" (click)="edit(exercise)"
+                ><mat-icon>edit</mat-icon></a
+              >
+              <a title="Delete {{ exercise.name }}" href="javascript:;" (click)="delete(exercise)"
+                ><mat-icon>delete</mat-icon></a
+              >
+            </span>
+          </span>
+        </div>
+        <div class="exercises">
+          <button class="custom" mat-fab type="button" color="primary" (click)="createExercise()">
+            <mat-icon>add</mat-icon>
+          </button>
+          <span>Custom Workout</span>
+        </div>
+      </mat-card-content>
     </div>
-  </mat-card-content>
+  </div>
 </mat-card>

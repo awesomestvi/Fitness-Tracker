@@ -12,6 +12,10 @@
   overflow: hidden;
 }
 
+.filter_input {
+  color: #fff;
+}
+
 .exercise_image {
   width: 35px;
   height: 35px;
@@ -30,6 +34,10 @@ section > * {
 
 .hidden_desktop {
   display: none;
+}
+
+.custom {
+  border: 2px solid #f5f5f5;
 }
 
 mat-icon {
@@ -124,5 +132,9 @@ mat-icon {
 
   .mat-table .exercise_actions button {
     margin-top: 12px;
+  }
+
+  .mat-paginator {
+    border-radius: 4px;
   }
 }

@@ -5,6 +5,8 @@ import { ExerciseEntityService } from "../../store/entity/exercise-entity.servic
 import { TrainingService } from "../training.service";
 import { MatDialog } from "@angular/material/dialog";
 import { CustomTrainingComponent } from "../custom-training/custom-training.component";
+import { map, tap } from "rxjs/operators";
+import { CommonService } from "src/app/shared/common.service";
 
 @Component({
   selector: "app-new-training",
@@ -13,15 +15,25 @@ import { CustomTrainingComponent } from "../custom-training/custom-training.comp
 })
 export class NewTrainingComponent implements OnInit {
   exercises$!: Observable<Exercise[]>;
+  customExercise$!: Observable<Exercise[]>;
 
   constructor(
     public exerciseService: ExerciseEntityService,
     private trainingService: TrainingService,
-    public dialog: MatDialog
+    public dialog: MatDialog,
+    private commonService: CommonService
   ) {}
 
   ngOnInit(): void {
-    this.exercises$ = this.exerciseService.entities$;
+    // Default Workouts
+    this.exercises$ = this.exerciseService.entities$.pipe(
+      map((exercise) => exercise.filter((exercise) => !exercise.type))
+    );
+
+    // Custom Workouts
+    this.customExercise$ = this.exerciseService.entities$.pipe(
+      map((exercise) => exercise.filter((exercise) => exercise.type))
+    );
   }
 
   startTraining(exercise: Exercise) {
@@ -43,6 +55,7 @@ export class NewTrainingComponent implements OnInit {
 
   delete(exercise: Exercise) {
     this.exerciseService.delete(exercise);
+    this.commonService.openSnackBar(`${exercise.name} workout is deleted`);
   }
 
   edit(exercise: Exercise) {

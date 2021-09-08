@@ -6,7 +6,7 @@ mat-card-content {
 }
 
 .exercises {
-  margin: 1rem !important;
+  margin: 0.8rem !important;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -16,9 +16,10 @@ mat-card-content {
 }
 
 .exercises span {
-  display: inline-block;
   margin-top: 10px;
   line-height: 16px;
+  display: block;
+  word-break: break-word;
 }
 
 .icon {
@@ -36,9 +37,11 @@ mat-card-content {
 }
 
 .customWorkout {
+  margin-top: 30px;
+
   .action_btns {
     position: absolute;
-    bottom: -28px;
+    bottom: -35px;
     width: 100%;
     margin: 0;
     left: 0;
@@ -51,17 +54,17 @@ mat-card-content {
       display: inline-block;
       background: #c2175b;
       border-radius: 50%;
-      margin: 0 2px;
+      margin: 0 5px;
     }
 
     .mat-icon {
-      font-size: 14px;
-      line-height: 14px;
+      font-size: 16px;
+      line-height: 16px;
       color: #fff;
-      height: 22px;
-      width: 22px;
+      height: 30px;
+      width: 30px;
       position: relative;
-      top: 3px;
+      top: 7px;
     }
   }
 
@@ -79,7 +82,26 @@ mat-card-content {
 }
 
 @media only screen and (max-width: 767px) {
+  mat-card-content {
+    justify-content: flex-start;
+    flex-wrap: nowrap;
+  }
+
+  .customWorkout mat-card-content {
+    justify-content: center;
+  }
+
   .exercises {
     margin: 0.5rem !important;
+  }
+
+  .mobile_scroll {
+    overflow-y: hidden;
+  }
+
+  .customWorkout {
+    .action_btns {
+      display: flex;
+    }
   }
 }
