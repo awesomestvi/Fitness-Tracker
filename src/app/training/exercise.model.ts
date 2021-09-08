@@ -10,3 +10,7 @@ export interface Exercise {
   user?: string;
   type?: "custom";
 }
+
+export function sortFinishedExercise(ex1: Exercise, ex2: Exercise) {
+  return ex2.id - ex1.id;
+}

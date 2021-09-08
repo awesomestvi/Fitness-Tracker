@@ -25,11 +25,11 @@ export class CustomTrainingComponent implements OnInit {
     private commonService: CommonService,
     private finishedExercise: FinishedEntityService,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) {
-    this.isData = !!Object.keys(this.data).length;
-  }
+  ) {}
 
   ngOnInit(): void {
+    this.isData = !!Object.keys(this.data).length;
+
     this.customExercise = this.fb.group({
       name: [this.isData ? this.data.name : "", [Validators.required]],
       duration: [this.isData ? this.data.duration : "30", Validators.required],
@@ -66,11 +66,17 @@ export class CustomTrainingComponent implements OnInit {
   updateFinishedExercise(exercise: Exercise) {
     this.finishedExercise.entities$
       .pipe(
-        map((exercises) => exercises.find((exer) => exer.name === this.data.name)?.id),
+        map((exercises) => exercises.filter((exer) => exer.name === this.data.name)),
         take(1)
       )
-      .subscribe((id) => {
-        id && this.finishedExercise.update({ ...exercise, id: id, seqNo: id });
+      .subscribe((exer) => {
+        exer.forEach((ex) => {
+          ex &&
+            this.finishedExercise.update({
+              name: exercise.name,
+              id: ex.id,
+            });
+        });
       });
   }
 }
